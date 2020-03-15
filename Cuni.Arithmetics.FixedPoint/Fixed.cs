@@ -14,12 +14,12 @@ namespace Cuni.Arithmetics.FixedPoint
         }
         public Fixed(int value) : this()
         {
-            Console.WriteLine("Int32 .ctor");
+            //Console.WriteLine("Int32 .ctor");
             this.Value = value << LowerBits;
         }
         private Fixed(long value) : this()
         {
-            Console.WriteLine("Int64 .cctor");
+            //Console.WriteLine("Int64 .cctor");
             this.Value = (int)value;
         }
 
@@ -29,8 +29,21 @@ namespace Cuni.Arithmetics.FixedPoint
         public Fixed<T> Subtract(Fixed<T> f) =>
             new Fixed<T>((long)this.Value - f.Value);
         public Fixed<T> Multiply(Fixed<T> f) =>
-            new Fixed<T>(((long)this.Value * f.Value) << (LowerBits*2));
+            new Fixed<T>(((long)this.Value * f.Value) >> LowerBits);
         public Fixed<T> Divide(Fixed<T> f) =>
-            new Fixed<T>(((long)this.Value / f.Value) << LowerBits);
+            new Fixed<T>(((long)this.Value << LowerBits ) / f.Value);
+        public override string ToString()
+        {
+            return (Value / powerOfTwo((uint)LowerBits)).ToString();
+        }
+        private double powerOfTwo(uint power)
+        {
+            int res = 1;
+            for (int i = 0; i < power; i++)
+            {
+                res *= 2;
+            }
+            return res;
+        }
     }
 }
