@@ -114,7 +114,6 @@ namespace FixedPointTests
 
             //Act
             var result = var1.Multiply(var2);
-            var binaryRes = Convert.ToString(result.Value, 2);
 
             //Assert
             Assert.Equal(new Fixed<Q16_16>(0xFF_FD_80_00L), result); // -2,5
@@ -134,6 +133,55 @@ namespace FixedPointTests
 
             //Assert
             Assert.Equal(new Fixed<Q16_16>(5L << 15), result); // 2,5
+            // make sure implementation return new object
+            Assert.False(object.ReferenceEquals(var1, result));
+            Assert.False(object.ReferenceEquals(var2, result));
+        }
+        [Fact]
+        public void DivisionTestPositive()
+        {
+            //Arrange
+            Fixed<Q16_16> var1 = new Fixed<Q16_16>(3);
+            Fixed<Q16_16> var2 = new Fixed<Q16_16>(2);
+
+            //Act
+            var result = var1.Divide(var2);
+
+            //Assert
+            Assert.Equal(new Fixed<Q16_16>(3L << 15), result); // 1,5
+            // make sure implementation return new object
+            Assert.False(object.ReferenceEquals(var1, result));
+            Assert.False(object.ReferenceEquals(var2, result));
+        }
+        [Fact]
+        public void DivisionTestOneNegative()
+        {
+            //Arrange
+            Fixed<Q16_16> var1 = new Fixed<Q16_16>(5);
+            Fixed<Q16_16> var2 = new Fixed<Q16_16>(-2);
+
+            //Act
+            var result = var1.Divide(var2);
+            var res = Convert.ToString(result.Value, 2);
+
+            //Assert
+            Assert.Equal(new Fixed<Q16_16>(0xFF_FD_80_00L), result); // -2,5
+            // make sure implementation return new object
+            Assert.False(object.ReferenceEquals(var1, result));
+            Assert.False(object.ReferenceEquals(var2, result));
+        }
+        [Fact]
+        public void DivisionTestBothNegative()
+        {
+            //Arrange
+            Fixed<Q16_16> var1 = new Fixed<Q16_16>(-3);
+            Fixed<Q16_16> var2 = new Fixed<Q16_16>(-2);
+
+            //Act
+            var result = var1.Divide(var2);
+
+            //Assert
+            Assert.Equal(new Fixed<Q16_16>(3L << 15), result);
             // make sure implementation return new object
             Assert.False(object.ReferenceEquals(var1, result));
             Assert.False(object.ReferenceEquals(var2, result));
