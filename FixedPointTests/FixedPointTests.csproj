@@ -13,4 +13,8 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cuni.Arithmetics.FixedPoint\Cuni.Arithmetics.FixedPoint.csproj" />
+  </ItemGroup>
+
 </Project>
