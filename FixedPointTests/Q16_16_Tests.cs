@@ -162,7 +162,6 @@ namespace FixedPointTests
 
             //Act
             var result = var1.Divide(var2);
-            var res = Convert.ToString(result.Value, 2);
 
             //Assert
             Assert.Equal(new Fixed<Q16_16>(0xFF_FD_80_00L), result); // -2,5
