@@ -185,5 +185,27 @@ namespace FixedPointTests
             Assert.False(object.ReferenceEquals(var1, result));
             Assert.False(object.ReferenceEquals(var2, result));
         }
+        [Fact]
+        public void DivisionTestTen()
+        {
+            //Arrange
+            Fixed<Q16_16> var1 = new Fixed<Q16_16>(248);
+            Fixed<Q16_16> var2 = new Fixed<Q16_16>(10);
+
+            //Act
+            Fixed<Q16_16> result = new Fixed<Q16_16>(0);
+            String binary;
+            binary = Convert.ToString(var1.Value, 2);
+            for (int i = 0; i < 4; i++){
+                result = var1.Divide(var2);
+                binary = Convert.ToString(result.Value, 2);
+            }
+
+            //Assert
+            Assert.Equal(new Fixed<Q16_16>(3L << 15), result);
+            // make sure implementation return new object
+            Assert.False(object.ReferenceEquals(var1, result));
+            Assert.False(object.ReferenceEquals(var2, result));
+        }
     }
 }
