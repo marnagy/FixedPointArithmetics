@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FixedPointTests")]
-
 namespace Cuni.Arithmetics.FixedPoint
 {
     public struct Fixed<T> where T: Q, new()
@@ -16,12 +14,10 @@ namespace Cuni.Arithmetics.FixedPoint
         }
         public Fixed(int value) : this()
         {
-            //Console.WriteLine("Int32 .ctor");
             this.Value = value << LowerBits;
         }
-        internal Fixed(long value) : this()
+        private Fixed(long value) : this()
         {
-            //Console.WriteLine("Int64 .cctor");
             this.Value = (int)value;
         }
 
@@ -36,9 +32,9 @@ namespace Cuni.Arithmetics.FixedPoint
             new Fixed<T>(((long)this.Value << LowerBits ) / f.Value);
         public override string ToString()
         {
-            return "" + (Value / powerOfTwo((uint)LowerBits));
+            return (Value / powerOfTwo(LowerBits)) + "";
         }
-        private double powerOfTwo(uint power)
+        private double powerOfTwo(int power)
         {
             int res = 1;
             for (int i = 0; i < power; i++)
