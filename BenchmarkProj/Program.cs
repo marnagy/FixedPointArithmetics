@@ -5,6 +5,7 @@ using Cuni.Arithmetics.FixedPoint;
 
 namespace BenchmarkProj
 {
+	[MemoryDiagnoser]
 	public class Program
 	{
 		public static Fixed<Q24_8> a;
@@ -22,7 +23,7 @@ namespace BenchmarkProj
 		[Benchmark]
 		public void AddWithoutLong()
 		{
-			
+			var res = a.AddWithoutLong(b);
 		}
 		[Benchmark]
 		public void SubtractWithLong()
@@ -32,7 +33,7 @@ namespace BenchmarkProj
 		[Benchmark]
 		public void SubtractWithoutLong()
 		{
-			
+			var res = a.SubtractWithoutLong(b);
 		}
 		[Benchmark]
 		public void MultiplyWithLong()
@@ -42,7 +43,7 @@ namespace BenchmarkProj
 		[Benchmark]
 		public void MultiplyWithoutLong()
 		{
-			
+			var res = a.MultiplyWithoutLong(b);
 		}
 		[Benchmark]
 		public void DivideWithLong()
@@ -52,7 +53,7 @@ namespace BenchmarkProj
 		[Benchmark]
 		public void DivideWithoutLong()
 		{
-			
+			var res = a.DivideWithoutLong(b);
 		}
 		static void Main(string[] args)
 		{
