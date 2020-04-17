@@ -21,6 +21,23 @@ namespace Cuni.Arithmetics.FixedPoint
             this.Value = (int)value;
         }
 
+        // operators
+        public static Fixed<T> operator +(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Add(b);
+        }
+        public static Fixed<T> operator -(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Subtract(b);
+        }
+        public static Fixed<T> operator *(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Multiply(b);
+        }
+        public static Fixed<T> operator /(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Divide(b);
+        }
 
         public Fixed<T> Add(Fixed<T> f) =>
             new Fixed<T>((long)this.Value + f.Value);
