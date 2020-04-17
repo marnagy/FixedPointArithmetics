@@ -16,6 +16,10 @@ namespace Cuni.Arithmetics.FixedPoint
         {
             this.Value = value << LowerBits;
         }
+        internal Fixed(int value, bool change = true)
+        {
+            this.Value = value;
+        }
         internal Fixed(long value) : this()
         {
             this.Value = (int)value;
@@ -41,12 +45,20 @@ namespace Cuni.Arithmetics.FixedPoint
 
         public Fixed<T> Add(Fixed<T> f) =>
             new Fixed<T>((long)this.Value + f.Value);
+        public Fixed<T> AddWithoutLong(Fixed<T> f) =>
+            new Fixed<T>(this.Value + f.Value, change: false);
         public Fixed<T> Subtract(Fixed<T> f) =>
             new Fixed<T>((long)this.Value - f.Value);
+        public Fixed<T> SubtractWithoutLong(Fixed<T> f) =>
+            new Fixed<T>(this.Value - f.Value, change: false);
         public Fixed<T> Multiply(Fixed<T> f) =>
             new Fixed<T>(((long)this.Value * f.Value) >> LowerBits);
+        public Fixed<T> MultiplyWithoutLong(Fixed<T> f) =>
+            new Fixed<T>((int)(((long)this.Value * f.Value) >> LowerBits), change: false);
         public Fixed<T> Divide(Fixed<T> f) =>
             new Fixed<T>(((long)this.Value << LowerBits) / f.Value);
+        public Fixed<T> DivideWithoutLong(Fixed<T> f) =>
+            new Fixed<T>((int)(((long)this.Value << LowerBits) / f.Value), change: false);
         public override string ToString()
         {
             return (Value / powerOfTwo(LowerBits)).ToString();
