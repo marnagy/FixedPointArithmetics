@@ -45,7 +45,34 @@ namespace Cuni.Arithmetics.FixedPoint
         {
             return a.Divide(b);
         }
+        public static Fixed<T> operator /(int a, Fixed<T> b)
+        {
+            return new Fixed<T>(a).Divide(b);
+        }
+        public static Fixed<T> operator /(Fixed<T> a, int b)
+        {
+            return a.Divide(new Fixed<T>(b));
+        }
 
+        // comparators
+        public static bool operator ==(Fixed<T> a, int b)
+        {
+            return a.Value == b << LowerBits;
+        }
+        public static bool operator !=(Fixed<T> a, int b)
+        {
+            return a.Value != b << LowerBits;
+        }
+        public static bool operator ==(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Value == b.Value;
+        }
+        public static bool operator !=(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Value != b.Value;
+        }
+
+        // methods
         public Fixed<T> Add(Fixed<T> f) =>
             new Fixed<T>((long)this.Value + f.Value);
         public Fixed<T> AddWithoutLong(Fixed<T> f) =>

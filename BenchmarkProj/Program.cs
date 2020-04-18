@@ -10,10 +10,23 @@ namespace BenchmarkProj
 	{
 		public static Fixed<Q24_8> a;
 		public static Fixed<Q24_8> b;
+		public static Matrix matrix;
 		static Program()
 		{
+			int dimension = 20;
 			a = new Fixed<Q24_8>(10);
 			b = new Fixed<Q24_8>(15);
+			Random rand = new Random();
+			int[,] vals = new int[dimension,dimension];
+			int i, k;
+			for (i = 0; i < dimension; i++)
+			{
+				for (k = 0; k < dimension; i++)
+				{
+					vals[i,k] = rand.Next(1,dimension+1);
+				}
+			}
+			matrix = new Matrix(vals);
 		}
 		[Benchmark]
 		public void AddWithLong()
@@ -54,6 +67,14 @@ namespace BenchmarkProj
 		public void DivideWithoutLong()
 		{
 			var res = a.DivideWithoutLong(b);
+		}
+		public void GaussianEliminationWithLong()
+		{
+			var res = Matrix.GaussWithLong(matrix);
+		}
+		public void GaussianEliminationWithoutLong()
+		{
+			var res = Matrix.GaussWithoutLong(matrix);
 		}
 		static void Main(string[] args)
 		{
