@@ -5,14 +5,14 @@ using Cuni.Arithmetics.FixedPoint;
 
 namespace BenchmarkProj
 {
-	public struct MatrixDouble
+	public struct MatrixFloat
 	{
 		public readonly int dimension;
-		internal double[,] values;
-		internal MatrixDouble(int[,] vals, int dimension)
+		internal float[,] values;
+		internal MatrixFloat(int[,] vals, int dimension)
 		{
 			this.dimension = dimension;
-			values = new double[dimension, dimension];
+			values = new float[dimension, dimension];
 			for (int i = 0; i < dimension; i++)
 			{
 				for (int k = 0; k < dimension; k++)
@@ -21,7 +21,7 @@ namespace BenchmarkProj
 				}
 			}
 		}
-		internal static MatrixDouble GaussStandard(MatrixDouble m)
+		internal static MatrixFloat GaussStandard(MatrixFloat m)
 		{
 			for (int i = 0; i < m.dimension; i++)
 			{

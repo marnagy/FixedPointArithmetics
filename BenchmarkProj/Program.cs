@@ -10,7 +10,9 @@ namespace BenchmarkProj
 	{
 		public static Fixed<Q24_8> a;
 		public static Fixed<Q24_8> b;
-		public static MatrixFixed matrix;
+		public static MatrixFixed matrixFixed;
+		public static MatrixDouble matrixDouble;
+		public static MatrixFloat matrixFloat;
 		static Program()
 		{
 			int dimension = 20;
@@ -18,7 +20,7 @@ namespace BenchmarkProj
 			b = new Fixed<Q24_8>(15);
 			Random rand = new Random();
 			int[,] vals = new int[dimension,dimension];
-			Console.WriteLine("Initializing matrix");
+			Console.WriteLine("Initializing matrices");
 			for (int i = 0; i < dimension; i++)
 			{
 				for (int k = 0; k < dimension; k++)
@@ -26,8 +28,10 @@ namespace BenchmarkProj
 					vals[i,k] = rand.Next(1,2*dimension+1);
 				}
 			}
-			matrix = new MatrixFixed(vals, dimension);
-			Console.WriteLine("Matrix ready.");
+			matrixFixed = new MatrixFixed(vals, dimension);
+			matrixFloat = new MatrixFloat(vals, dimension);
+			matrixDouble = new MatrixDouble(vals, dimension);
+			Console.WriteLine("Matrices ready.");
 		}
 		[Benchmark]
 		public void AddWithLong()
@@ -72,17 +76,27 @@ namespace BenchmarkProj
 		[Benchmark]
 		public void GaussianEliminationWithLong()
 		{
-			var res = MatrixFixed.GaussWithLong(matrix);
+			var res = MatrixFixed.GaussWithLong(matrixFixed);
 		}
 		[Benchmark]
 		public void GaussianEliminationWithoutLong()
 		{
-			var res = MatrixFixed.GaussWithoutLong(matrix);
+			var res = MatrixFixed.GaussWithoutLong(matrixFixed);
 		}
 		[Benchmark]
 		public void GaussianEliminationCombined()
 		{
-			var res = MatrixFixed.GaussStandard(matrix);
+			var res = MatrixFixed.GaussStandard(matrixFixed);
+		}
+		[Benchmark]
+		public void GaussianEliminationDouble()
+		{
+			var res = MatrixDouble.GaussStandard(matrixDouble);
+		}
+		[Benchmark]
+		public void GaussianEliminationFloat()
+		{
+			var res = MatrixFloat.GaussStandard(matrixFloat);
 		}
 		static void Main(string[] args)
 		{
