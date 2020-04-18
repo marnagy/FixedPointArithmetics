@@ -25,6 +25,9 @@ namespace Cuni.Arithmetics.FixedPoint
             this.Value = (int)value;
         }
 
+        // conversions
+        public static explicit operator Fixed<T>(int d) => new Fixed<T>(d);
+
         // operators
         public static Fixed<T> operator +(Fixed<T> a, Fixed<T> b)
         {
