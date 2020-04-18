@@ -5,23 +5,23 @@ using Cuni.Arithmetics.FixedPoint;
 
 namespace BenchmarkProj
 {
-	public struct Matrix
+	public struct MatrixDouble
 	{
 		public readonly int dimension;
-		internal Fixed<Q8_24>[,] values;
-		internal Matrix(int[,] vals, int dimension)
+		internal double[,] values;
+		internal MatrixDouble(int[,] vals, int dimension)
 		{
 			this.dimension = dimension;
-			values = new Fixed<Q8_24>[dimension, dimension];
+			values = new double[dimension, dimension];
 			for (int i = 0; i < dimension; i++)
 			{
 				for (int k = 0; k < dimension; k++)
 				{
-					values[i, k] = (Fixed<Q8_24>)vals[i, k];
+					values[i, k] = vals[i, k];
 				}
 			}
 		}
-		internal static Matrix GaussWithLong(Matrix m)
+		internal static MatrixDouble GaussWithLong(MatrixDouble m)
 		{
 			for (int i = 0; i < m.dimension; i++)
 			{
@@ -48,7 +48,7 @@ namespace BenchmarkProj
 			}
 			return m;
 		}
-		internal static Matrix GaussWithoutLong(Matrix m)
+		internal static MatrixDouble GaussWithoutLong(MatrixDouble m)
 		{
 			for (int i = 0; i < m.dimension; i++)
 			{
@@ -75,7 +75,7 @@ namespace BenchmarkProj
 			}
 			return m;
 		}
-		internal static Matrix GaussStandard(Matrix m)
+		internal static MatrixFixed GaussStandard(MatrixFixed m)
 		{
 			for (int i = 0; i < m.dimension; i++)
 			{

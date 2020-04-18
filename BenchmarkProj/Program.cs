@@ -10,7 +10,7 @@ namespace BenchmarkProj
 	{
 		public static Fixed<Q24_8> a;
 		public static Fixed<Q24_8> b;
-		public static Matrix matrix;
+		public static MatrixFixed matrix;
 		static Program()
 		{
 			int dimension = 20;
@@ -26,7 +26,7 @@ namespace BenchmarkProj
 					vals[i,k] = rand.Next(1,2*dimension+1);
 				}
 			}
-			matrix = new Matrix(vals, dimension);
+			matrix = new MatrixFixed(vals, dimension);
 			Console.WriteLine("Matrix ready.");
 		}
 		[Benchmark]
@@ -72,17 +72,17 @@ namespace BenchmarkProj
 		[Benchmark]
 		public void GaussianEliminationWithLong()
 		{
-			var res = Matrix.GaussWithLong(matrix);
+			var res = MatrixFixed.GaussWithLong(matrix);
 		}
 		[Benchmark]
 		public void GaussianEliminationWithoutLong()
 		{
-			var res = Matrix.GaussWithoutLong(matrix);
+			var res = MatrixFixed.GaussWithoutLong(matrix);
 		}
 		[Benchmark]
 		public void GaussianEliminationCombined()
 		{
-			var res = Matrix.GaussStandard(matrix);
+			var res = MatrixFixed.GaussStandard(matrix);
 		}
 		static void Main(string[] args)
 		{
