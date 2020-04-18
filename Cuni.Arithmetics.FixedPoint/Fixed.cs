@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FixedPointTests")]
 namespace Cuni.Arithmetics.FixedPoint
 {
     public struct Fixed<T> where T: Q, new()
@@ -14,31 +15,61 @@ namespace Cuni.Arithmetics.FixedPoint
         }
         public Fixed(int value) : this()
         {
-            //Console.WriteLine("Int32 .ctor");
             this.Value = value << LowerBits;
         }
-        private Fixed(long value) : this()
+        internal Fixed(int value, bool change = true)
         {
-            //Console.WriteLine("Int64 .cctor");
+            this.Value = value;
+        }
+        internal Fixed(long value) : this()
+        {
             this.Value = (int)value;
         }
 
+        // conversions
+        public static explicit operator Fixed<T>(int d) => new Fixed<T>(d);
+
+        // operators
+        public static Fixed<T> operator +(Fixed<T> a, Fixed<T> b)
+        {
+            return a.AddWithoutLong(b);
+        }
+        public static Fixed<T> operator -(Fixed<T> a, Fixed<T> b)
+        {
+            return a.SubtractWithoutLong(b);
+        }
+        public static Fixed<T> operator *(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Multiply(b);
+        }
+        public static Fixed<T> operator /(Fixed<T> a, Fixed<T> b)
+        {
+            return a.Divide(b);
+        }
 
         public Fixed<T> Add(Fixed<T> f) =>
             new Fixed<T>((long)this.Value + f.Value);
+        public Fixed<T> AddWithoutLong(Fixed<T> f) =>
+            new Fixed<T>(this.Value + f.Value, change: false);
         public Fixed<T> Subtract(Fixed<T> f) =>
             new Fixed<T>((long)this.Value - f.Value);
+        public Fixed<T> SubtractWithoutLong(Fixed<T> f) =>
+            new Fixed<T>(this.Value - f.Value, change: false);
         public Fixed<T> Multiply(Fixed<T> f) =>
             new Fixed<T>(((long)this.Value * f.Value) >> LowerBits);
+        public Fixed<T> MultiplyWithoutLong(Fixed<T> f) =>
+            new Fixed<T>((int)(((long)this.Value * f.Value) >> LowerBits), change: false);
         public Fixed<T> Divide(Fixed<T> f) =>
-            new Fixed<T>(((long)this.Value << LowerBits ) / f.Value);
+            new Fixed<T>(((long)this.Value << LowerBits) / f.Value);
+        public Fixed<T> DivideWithoutLong(Fixed<T> f) =>
+            new Fixed<T>((int)(((long)this.Value << LowerBits) / f.Value), change: false);
         public override string ToString()
         {
-            return (Value / powerOfTwo((uint)LowerBits)).ToString();
+            return (Value / powerOfTwo(LowerBits)).ToString();
         }
-        private double powerOfTwo(uint power)
+        private double powerOfTwo(int power)
         {
-            int res = 1;
+            long res = 1;
             for (int i = 0; i < power; i++)
             {
                 res *= 2;
