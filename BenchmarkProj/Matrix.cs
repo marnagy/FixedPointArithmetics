@@ -9,20 +9,16 @@ namespace BenchmarkProj
 	{
 		public readonly int dimension;
 		internal Fixed<Q8_24>[,] values;
-		internal Matrix(int[,] vals)
+		internal Matrix(int[,] vals, int dimension)
 		{
-			dimension = vals.Length;
-			values = new Fixed<Q8_24>[vals.Length, vals.Length];
-			int i = 0;
-			while (i < vals.Length)
+			this.dimension = dimension;
+			values = new Fixed<Q8_24>[dimension, dimension];
+			for (int i = 0; i < dimension; i++)
 			{
-				int k = 0;
-				while (k < vals.Length)
+				for (int k = 0; k < dimension; k++)
 				{
 					values[i, k] = (Fixed<Q8_24>)vals[i, k];
-					k++;
 				}
-				i++;
 			}
 		}
 		internal static Matrix GaussWithLong(Matrix m)
