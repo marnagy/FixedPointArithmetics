@@ -40,7 +40,7 @@ namespace Cuni.Arithmetics.FixedPoint
         }
         public static Fixed<T> operator *(Fixed<T> a, Fixed<T> b)
         {
-            return a.MultiplyWithoutLong(b);
+            return a.Multiply(b);
         }
         public static Fixed<T> operator /(Fixed<T> a, Fixed<T> b)
         {
