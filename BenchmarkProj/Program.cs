@@ -79,6 +79,11 @@ namespace BenchmarkProj
 		{
 			var res = Matrix.GaussWithoutLong(matrix);
 		}
+		[Benchmark]
+		public void GaussianEliminationCombined()
+		{
+			var res = Matrix.GaussStandard(matrix);
+		}
 		static void Main(string[] args)
 		{
 			var summary = BenchmarkRunner.Run<Program>();
