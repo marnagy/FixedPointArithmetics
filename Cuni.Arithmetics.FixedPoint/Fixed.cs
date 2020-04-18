@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FixedPointTests")]
 namespace Cuni.Arithmetics.FixedPoint
 {
     public struct Fixed<T> where T: Q, new()
