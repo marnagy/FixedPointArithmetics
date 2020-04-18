@@ -32,11 +32,11 @@ namespace Cuni.Arithmetics.FixedPoint
         // operators
         public static Fixed<T> operator +(Fixed<T> a, Fixed<T> b)
         {
-            return a.Add(b);
+            return a.AddWithoutLong(b);
         }
         public static Fixed<T> operator -(Fixed<T> a, Fixed<T> b)
         {
-            return a.Subtract(b);
+            return a.SubtractWithoutLong(b);
         }
         public static Fixed<T> operator *(Fixed<T> a, Fixed<T> b)
         {
